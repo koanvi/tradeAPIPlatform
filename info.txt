@@ -38,11 +38,6 @@ https://docs.bitfinex.com/reference
 
 
 
-
-double ticks = double.Parse(startdatetime);
-TimeSpan time = TimeSpan.FromMilliseconds(ticks);
-DateTime startdate = new DateTime(1970, 1, 1) + time;
-
 https://docs.bitfinex.com/reference#rest-public-candles
 
 https://api-pub.bitfinex.com/v2/candles/trade:1m:tBTCUSD/hist
