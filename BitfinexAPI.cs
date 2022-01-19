@@ -1,5 +1,5 @@
 
-namespace koanvi.apiGetter.BitfinexAPI {
+namespace koanvi.tradeAPIPlatform.BitfinexAPI {
 
   //get data from api
   public class DataGetter {
@@ -13,25 +13,23 @@ namespace koanvi.apiGetter.BitfinexAPI {
       var stringTask = client.GetStringAsync(request);
       var msg = await stringTask;
 
-
-      // var parseResult = System.Text.Json.JsonDocument.Parse(msg);
-      Console.WriteLine(msg);
       var parseResult = System.Text.Json.JsonSerializer.Deserialize<object[][]>(msg);
       (parseResult.ToList<object[]>()).ForEach(row => {
 
-        var MTS = row[0];
-        var OPEN = row[1];
-        var CLOSE = row[2];
-        var HIGH = row[3];
-        var LOW = row[4];
-        var VOLUME = row[5];
+        var MTS = row[0].ToString();
+        var OPEN = row[1].ToString();
+        var CLOSE = row[2].ToString();
+        var HIGH = row[3].ToString();
+        var LOW = row[4].ToString();
+        var VOLUME = row[5].ToString();
 
         var candel = new Candel() {
-          MTS = Convert.ToInt32(MTS),
-          OPEN = Convert.ToSingle(CLOSE),
-          HIGH = Convert.ToSingle(HIGH),
-          LOW = Convert.ToSingle(LOW),
-          VOLUME = Convert.ToSingle(VOLUME),
+          MTS = Convert.ToInt64(MTS, System.Globalization.CultureInfo.InvariantCulture),
+          OPEN = Convert.ToSingle(OPEN, System.Globalization.CultureInfo.InvariantCulture),
+          CLOSE = Convert.ToSingle(CLOSE, System.Globalization.CultureInfo.InvariantCulture),
+          HIGH = Convert.ToSingle(HIGH, System.Globalization.CultureInfo.InvariantCulture),
+          LOW = Convert.ToSingle(LOW, System.Globalization.CultureInfo.InvariantCulture),
+          VOLUME = Convert.ToSingle(VOLUME, System.Globalization.CultureInfo.InvariantCulture),
 
         };
 
@@ -47,7 +45,7 @@ namespace koanvi.apiGetter.BitfinexAPI {
   }
 
   public class Candel {
-    public int MTS { get; set; }
+    public long MTS { get; set; }
     public float OPEN { get; set; }
     public float CLOSE { get; set; }
     public float HIGH { get; set; }
